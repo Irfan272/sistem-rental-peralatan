@@ -1,25 +1,21 @@
 @extends('admin.layout.master')
 
-@section('title', 'Input Data Barang Keluar')
+@section('title', 'Input Data Penyewaan')
 
 @section('content')
-
 
 <div class="right_col" role="main">
     <div class="">
         <div class="page-title">
             <div class="title_left">
-                <h3>Form Barang Keluar</h3>
+                <h3>Form Penyewaan</h3>
             </div>
-
-          
         </div>
         <div class="clearfix"></div>
 
         <div class="row">
             <div class="col-md-12 col-sm-12">
                 <div class="x_panel">
-                    
                     <div class="x_content">
                         @if ($errors->any())
                         <div class="alert alert-danger">
@@ -29,62 +25,60 @@
                                 @endforeach
                             </ul>
                         </div>
-                    @endif
+                        @endif
 
-
-                        <form action="/admin/barang_keluar/store" method="post">
+                        <form action="/rental/store" method="post">
                             @csrf
                             <div class="form-group">
-                                <label for="supplier_id">PO Barang keluar</label>
-                                <input type="hidden" value="{{$no_po}}" name="no_po" id="no_po" class="form-control" required>
+                                <label for="no_po">No Invoice</label>
+                                <input type="text" value="{{$no_po}}" name="no_invoice" id="no_invoice" class="form-control" required readonly>
                             </div>
                             <div class="form-group">
-                                <label for="supplier_id">Sales:</label>
-                                <select name="id_sales" id="id_sales" class="form-control" required>
-                                    <option value="">Pilih Sales</option>
-                                    @foreach($sales as $s)
-                                        <option value="{{ $s->id }}">{{ $s->nama}}</option>
+                                <label for="pelanggan_id">Pelanggan:</label>
+                                <select name="pelanggan_id" id="pelanggan_id" class="form-control" required>
+                                    <option value="">Pilih Pelanggan</option>
+                                    @foreach($pelanggan as $s)
+                                        <option value="{{ $s->id }}">{{ $s->nama_pelanggan}}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="tanggal_keluar">Tanggal keluar:</label>
-                                <input type="date" name="tanggal_keluar" id="tanggal_keluar" class="form-control" required>
+                                <label for="alat_id">Nama Alat:</label>
+                                <select name="alat_id" id="alat_id" class="form-control" required>
+                                    <option value="">Pilih Alat</option>
+                                    @foreach($alat as $s)
+                                        <option value="{{ $s->id }}" data-harga="{{ $s->harga_perhari }}">{{$s->Jenis->nama_jenis}} || {{ $s->merk }} || {{$s->type}} || {{ $s->harga_perhari }}</option>
+                                    @endforeach
+                                </select>
                             </div>
-                            <hr>
-                            <h4>Detail Barang keluar:</h4>
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Barang</th>
-                                        <th>Jumlah</th>
-                                        <th>Satuan</th>
-                                        <th>Harga</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <select name="id_barang[]"  class="form-control selectpicker" data-live-search="true">
-                                                <option value="">Pilih Produk</option>
-                                                @foreach($barang as $product)
-                                                    <option value="{{ $product->id }}">{{ $product->kd_barang }} | {{ $product->nama_barang }}, </option>
-                                                @endforeach
-                                            </select>
-                                        </td>
-                                        <td><input type="number" name="jumlah[]" class="form-control" min="1" required></td>
-                                        <td><input type="text" name="satuan" class="form-control" value="Dus" readonly required></td>
-                                        <td><input type="text" name="harga[]" class="form-control input-harga" min="1" required></td>
-                                        <td>
-                                            <button type="button" class="btn btn-danger btn-sm" onclick="removeRow(this)">Hapus</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <button type="button" class="btn btn-primary" id="addRow">Tambah Baris</button>
-                            <button type="submit" class="btn btn-success">Simpan Barang keluar</button>
-                            <a href="/admin/barang_keluar" class="btn btn-danger" >Batal</a>
+                            <div class="form-group">
+                                <label for="tanggal_sewa">Tanggal Sewa:</label>
+                                <input type="date" name="tanggal_sewa" id="tanggal_sewa" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="tanggal_kembali">Tanggal Kembali:</label>
+                                <input type="date" name="tanggal_kembali" id="tanggal_kembali" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lama_sewa">Lama Sewa</label>
+                                <input type="text" value="" name="lama_sewa" id="lama_sewa" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="biaya_sewa">Biaya Sewa</label>
+                                <input type="text" value="" name="biaya_sewa" id="biaya_sewa" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="status_pembayaran">Status Pembayaran:</label>
+                                <select name="status_pembayaran" id="status_pembayaran" class="form-control" required>
+                                    <option value="">Pilih Status</option>
+                                    <option value="Belum Bayar">Belum Bayar</option>
+                                    <option value="Sudah Bayar">Sudah Bayar</option>
+                                   
+                                </select>
+                            </div>                       
+                            
+                            <button type="submit" class="btn btn-success">Simpan</button>
+                            <a href="/rental" class="btn btn-danger">Batal</a>
                         </form>
                     </div>
                 </div>
@@ -92,55 +86,57 @@
         </div>
     </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script>
-   $('#barangSelect').on('change', function() {
-    var barangId = $(this).val();
-    if (barangId !== '') {
-        $.get('/get-harga', { barang_id: barangId }, function(data) {
-            $('#hargaInput').val(data.harga);
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const alatSelect = document.getElementById('alat_id');
+        const tanggalSewaInput = document.getElementById('tanggal_sewa');
+        const tanggalKembaliInput = document.getElementById('tanggal_kembali');
+        const biayaSewaInput = document.getElementById('biaya_sewa');
+        const lamaSewaInput = document.getElementById('lama_sewa');
+
+        function calculateBiayaSewa() {
+            const alatOption = alatSelect.options[alatSelect.selectedIndex];
+            const hargaPerHari = alatOption.getAttribute('data-harga');
+            const tanggalSewa = new Date(tanggalSewaInput.value);
+            const tanggalKembali = new Date(tanggalKembaliInput.value);
+            
+            if (hargaPerHari && tanggalSewa && tanggalKembali && tanggalKembali >= tanggalSewa) {
+                const diffTime = Math.abs(tanggalKembali - tanggalSewa);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; // Termasuk hari sewa dan hari kembali
+                const biayaSewa = diffDays * hargaPerHari;
+                biayaSewaInput.value = biayaSewa;
+            } else {
+                biayaSewaInput.value = '';
+            }
+        }
+
+        function calculateLamaSewa() {
+            const tanggalSewa = new Date(tanggalSewaInput.value);
+            const tanggalKembali = new Date(tanggalKembaliInput.value);
+            
+            if (tanggalSewa && tanggalKembali && tanggalKembali >= tanggalSewa) {
+                const diffTime = Math.abs(tanggalKembali - tanggalSewa);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; // Termasuk hari sewa dan hari kembali
+                lamaSewaInput.value = diffDays + ' hari';
+            } else {
+                lamaSewaInput.value = '';
+            }
+        }
+
+        alatSelect.addEventListener('change', () => {
+            calculateBiayaSewa();
+            calculateLamaSewa();
         });
-    } else {
-        $('#hargaInput').val('');
-    }
-});
-
-
-
-        document.getElementById('addRow').addEventListener('click', function() {
-            var row = '<tr>' +
-                '<td><select name="id_barang[]" class="form-control ">' +
-                '<option value="">Pilih Produk</option>' +
-                '@foreach($barang as $product)' +
-                '<option value="{{ $product->id }}">{{ $product->nama_barang }}</option>' +
-                '@endforeach' +
-                '</select></td>' +
-                '<td><input type="number" name="jumlah[]" class="form-control" min="1" required></td>' +
-                '<td><input type="text" value="Dus" name="satuan" class="form-control" readonly required></td>' +
-                ' <td><input type="text" name="harga[]" class="form-control input-harga" min="1" required></td>' +
-                '<td><button type="button" class="btn btn-danger btn-sm" onclick="removeRow(this)">Hapus</button></td>' +
-                '</tr>';
-
-            document.querySelector('table tbody').insertAdjacentHTML('beforeend', row);
+        tanggalSewaInput.addEventListener('change', () => {
+            calculateBiayaSewa();
+            calculateLamaSewa();
         });
-        function removeRow(button) {
-        var row = button.closest('tr');
-        row.remove();
-    }
-    document.addEventListener("DOMContentLoaded", function () {
-    var inputHargaElements = document.querySelectorAll(".input-harga");
-    inputHargaElements.forEach(function (inputHarga) {
-        inputHarga.addEventListener("input", function (e) {
-            formatRupiah(e.target);
+        tanggalKembaliInput.addEventListener('change', () => {
+            calculateBiayaSewa();
+            calculateLamaSewa();
         });
     });
-});
+</script>
 
-function formatRupiah(inputElement) {
-    var value = inputElement.value;
-    var numberString = value.replace(/\D/g, ''); // Menghapus karakter non-numerik
-    var formattedNumber = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(numberString);
-    inputElement.value = formattedNumber;
-}
-    </script>
 @endsection

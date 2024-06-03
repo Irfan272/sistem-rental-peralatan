@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 
-@section('title', 'Input Data Barang Keluar ')
+@section('title', 'Laporan Pengembalian ')
 
 @section('content')
 
@@ -9,7 +9,7 @@
     <div class="">
         <div class="page-title">
             <div class="title_left">
-                <h3>Laporan Barang Keluar </h3>
+                <h3>Laporan Pengembalian </h3>
             </div>
 
           
@@ -37,18 +37,18 @@
                             <div class="form-group">
                                 <label for="supplier_id">Tanggal Awal:</label>
                  
-                                <input type="date" name="tanggal_awal" id="tanggal_awal"  class="form-control">
+                                <input type="date" name="tanggal_sewa" id="tanggal_sewa"  class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="supplier_id">Tanggal Akhir:</label>
                  
-                                <input type="date" name="tanggal_akhir" id="tanggal_akhir" class="form-control">
+                                <input type="date" name="tanggal_pengembalian" id="tanggal_pengembalian" class="form-control">
                             </div>
                         
                             <div class="col-12 d-flex justify-content-end">
                                
-                                <a href="" onclick="this.href='/admin/cetak-barang-keluar-pertanggal/'+ document.getElementById('tanggal_awal').value +
-                                '/' + document.getElementById('tanggal_akhir').value " 
+                                <a href="" onclick="this.href='/laporan-pengembalian-pertanggal/'+ document.getElementById('tanggal_sewa').value +
+                                '/' + document.getElementById('tanggal_pengembalian').value " 
                                 target="_blank" class="btn btn-primary me-1 mb-1">Cetak</a>
                             </div>
                             {{-- <button type="button" class="btn btn-primary" id="addRow">Tambah Baris</button>

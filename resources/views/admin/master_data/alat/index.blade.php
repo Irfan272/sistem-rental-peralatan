@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 
-@section('title', 'Data Barang')
+@section('title', 'Data alat')
 
 @section('content')
     
@@ -8,7 +8,7 @@
         <div class="right_col" role="main">
           <div class="">
             <div class="top_tiles">
-            <h1>Data Barang</h1>
+            <h1>Data alat</h1>
           </div>
 
           {{-- @if(session('notifications'))
@@ -22,8 +22,8 @@
           @endif --}}
         
           <div class="col-md-12 col-sm-12 ">
-              <a href="/barang/create" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Tambah Data
-                  Barang</a>
+              <a href="/alat/create" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Tambah Data
+                Alat</a>
               <div class="x_panel">
                 <div class="x_title">
                   @if (session('status'))
@@ -34,7 +34,7 @@
                     </button>
                   </div>
                   @endif
-                  <h2>Tabel Data <small>Barang</small></h2>
+                  <h2>Tabel Data <small>Alat</small></h2>
                   <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -45,49 +45,50 @@
                     <div class="row">
                         <div class="col-sm-12">
                           <div class="card-box table-responsive">
-                            {{-- @if(count($barang) > 0) --}}
+                            {{-- @if(count($alat) > 0) --}}
                   <table id="datatable" class="table table-striped table-bordered " style="width:100%">
                     <thead>
                       <tr>
                         <th>No</th>
-                        <th>Kode Barang</th>
-                        <th>Nama Barang</th>
-                        <th>Stok</th>
-                        <th>Satuan</th>
-                        <th>Harga</th>
+                        <th>Jenis</th>
+                        <th>Merk</th>
+                        <th>Type</th>
+                        <th>Harga/Hari</th>
+                        <th>Status</th>
+                        <th>Gambar</th>
                         <th style="width: 30%">Action</th>
                       </tr>
                     </thead>
 
 
                     <tbody>
-                      {{-- @foreach ($barang as $b)
-                          
-                      
+                      @foreach ($alat as $b)
+
                         <tr >
                         <td >{{ $loop->iteration }}</td>
-                        <td>{{ $b->kd_barang }}</td>
-                        <td>{{ $b->nama_barang }}</td>
-                        <td>{{ $b->stok}}</td>
-                        <td>{{ $b->satuan }}</td>
-                        <td>{{ $b->harga}}</td>
+                        <td>{{ $b->Jenis->nama_jenis}}</td>
+                        <td>{{ $b->merk}}</td>
+                        <td>{{ $b->type}}</td>
+                        <td>{{ $b->harga_perhari}}</td>
+                        <td>{{ $b->status}}</td>
+                        <td>{{ $b->gambar_alat}}</td>
 
                         <td style="text-align: left">
-                          <a href="/admin/barang/view/{{ $b->id }}" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
-                          <a href="/admin/barang/edit/{{ $b->id }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-                          <form action="/admin/barang/delete/{{$b->id}}" method="POST" class="d-inline">
+                          <a href="/alat/view/{{ $b->id }}" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> </a>
+                          <a href="/alat/edit/{{ $b->id }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> </a>
+                          <form action="/alat/delete/{{$b->id}}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
-                          <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </button>
+                          <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> </button>
                         </form>
                         </td>
                       </tr>
-                      @endforeach --}}
+                      @endforeach
                       
                     </tbody>
                   </table>
                   {{-- @else --}}
-    {{-- <p>Tidak ada barang yang tersedia.</p> --}}
+    {{-- <p>Tidak ada alat yang tersedia.</p> --}}
     {{-- @endif --}}
                 </div>
                 </div>

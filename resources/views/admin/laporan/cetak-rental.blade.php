@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 
-@section('title', 'Input Data Barang ')
+@section('title', 'Input Data Barang Keluar ')
 
 @section('content')
 
@@ -9,7 +9,7 @@
     <div class="">
         <div class="page-title">
             <div class="title_left">
-                <h3>Form Barang </h3>
+                <h3>Laporan Rental </h3>
             </div>
 
           
@@ -35,19 +35,21 @@
                         {{-- <form action="/admin/barang_/store" method="post">
                             @csrf --}}
                             <div class="form-group">
-                                <label for="supplier_id">Barang:</label>
-                                <select name="nama_barang" id="nama_barang" class="form-control" required>
-                                    <option value="">Pilih Barang</option>
-                                    @foreach($barang as $s)
-                                        <option value="{{ $s->id }}">{{ $s->nama_barang}}</option>
-                                    @endforeach
-                                </select>
+                                <label for="supplier_id">Tanggal Awal:</label>
+                 
+                                <input type="date" name="tanggal_sewa" id="tanggal_sewa"  class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="supplier_id">Tanggal Akhir:</label>
+                 
+                                <input type="date" name="tanggal_kembali" id="tanggal_kembali" class="form-control">
                             </div>
                         
                             <div class="col-12 d-flex justify-content-end">
                                
-                                <a href="" onclick="this.href='/admin/cetak-barang-detail/'+ document.getElementById('nama_barang').options[document.getElementById('nama_barang').selectedIndex].text" 
-    target="_blank" class="btn btn-primary me-1 mb-1">Cetak</a>
+                                <a href="" onclick="this.href='/laporan-rental-pertanggal/'+ document.getElementById('tanggal_sewa').value +
+                                '/' + document.getElementById('tanggal_kembali').value " 
+                                target="_blank" class="btn btn-primary me-1 mb-1">Cetak</a>
                             </div>
                             {{-- <button type="button" class="btn btn-primary" id="addRow">Tambah Baris</button>
                             <button type="submit" class="btn btn-success">Simpan Barang </button>

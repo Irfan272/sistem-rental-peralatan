@@ -12,7 +12,7 @@
           </div>
 
           <div class="col-md-12 col-sm-12 ">
-              <a href="/admin/Pelanggan/create" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Input Data
+              <a href="/pelanggan/create" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Input Data
                 Pelanggan</a>
               <div class="x_panel">
                 <div class="x_title">
@@ -46,31 +46,33 @@
                         <th>Nama Pelanggan</th>
                         <th>Alamat</th>
                         <th>No Telepone</th>
+                        <th>Email</th>
                         <th style="width: 25%">Action</th>
                       </tr>
                     </thead>
 
 
                     <tbody>
-                      {{-- @foreach ($Pelanggan as $e)
+                      @foreach ($pelanggan as $e)
                           
                       <tr >
                         <td >{{ $loop->iteration }}</td>
-                        <td>{{ $e->nama }}</td>
+                        <td>{{ $e->nama_pelanggan }}</td>
                         <td>{{$e->alamat}}</td>
-                        <td>{{$e->not_hp}}</td>
+                        <td>{{$e->no_telpon}}</td>
+                        <td>{{$e->email}}</td>
                         <td style="text-align: left">
-                          <a href="/admin/distributor/view/{$id}" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
-                          <a href="/admin/Pelanggan/edit/{{ $e->id }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-                          <form action="/admin/Pelanggan/delete/{{$e->id}}" method="POST" class="d-inline">
+                          <a href="/pelanggan/view/{{ $e->id }}" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i> </a>
+                          <a href="/pelanggan/edit/{{ $e->id }}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> </a>
+                          <form action="/pelanggan/delete/{{$e->id}}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
-                          <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </button>
+                          <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> </button>
                         </form>
                         </td>
                       </tr>
                       
-                          @endforeach --}}
+                          @endforeach
                     </tbody>
                   </table>
                 </div>
